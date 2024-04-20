@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+   
+    <title>Welcome to Bookbird Library</title>
+  </head>
+  
+  <style>
+     #main_content {
+      background: rgba(245, 245, 245, 0.9);
+      padding: 50px;
+    }
+   
+    body {
+      background: rgba(245, 245, 245, 0.4);
+      background-image: url("https://img.freepik.com/free-photo/abundant-collection-antique-books-wooden-shelves-generated-by-ai_188544-29660.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1704240000&semt=sph");
+    }
+    .row{
+        margin: 20px;
+    justify-content: center;
+    }
+    #main {
+      background: rgba(245, 245, 245, 0.9);
+      padding: 50px;
+    }
+    .container{
+      background: rgba(245, 245, 245, 0.9);
+      padding: 50px;
+    }
+    #book-list{
+     
+      padding: 50px;
+    }
+    .book-item {
+    display: flexbox;
+    background-color: #d4d7f8; 
+    border-radius: 5px;
+    padding: 50px; 
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+.book-item + .book-item {
+    margin-top: 20px; 
+}
+
+
+  </style>
+
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Bookbird Library</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            id="search"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0 " id="search-btn" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+
+    <div class="main">
+      
+      <div class="container my-3">
+        
+        <!-- table to show books.... -->
+        <div id="table">
+          <h1>Your books</h1>
+
+          
+       <!-- Catalog View -->
+       <div id="book-list" class="book-grid">
+
+       </div>
+
+
+          <!-- <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Type</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table> -->
+        </div>
+        <!-- table completed... -->
+      </div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <!-- <script src="indexes6.js"></script> -->
+
+    <script>
+      // Constructor
+      class Book {
+            
+            constructor(name, author, isbn, type,availability=true) {
+                this.name = name;
+                this.author = author;
+                this.isbn = isbn;
+                this.type = type;
+                this.availability = availability;
+            }
+
+            // Getter methods
+            get name() {
+                return this.title;
+            }
+            get author() {
+                return this.author;
+            }
+            get isbn() {
+                return this.isbn;
+            }
+            get type() {
+                return this.type;
+            }
+            get availability() {
+                return this.availability;
+            }
+
+            // Setter methods
+            set name(newName) {
+                this.name = newName;
+            }
+            set author(newAuthor) {
+                this.author = newAuthor;
+            }
+            set isbn(newISBN) {
+                this.isbn = newISBN;
+            }
+            set type(newType) {
+                this.type = newType;
+            }
+            set availability(newAvailability) {
+                this.availability = newAvailability;
+            }
+        }
+
+        class LibraryCatalog {
+            constructor() {
+                this.books = JSON.parse(localStorage.getItem('libraryCatalog')) || [];
+            }
+
+           
+            addBook(book) {
+                book.availability = true; 
+                this.books.push(book);
+                this.updateLocalStorage();
+                this.displayBooks();
+            }
+
+            removeBook(isbn) {
+                this.books = this.books.filter(book => book.isbn !== isbn);
+                this.updateLocalStorage();
+                this.displayBooks();
+            }
+
+            updateLocalStorage() {
+                localStorage.setItem('libraryCatalog', JSON.stringify(this.books));
+            }
+
+            displayBooks() {
+                const bookList = document.getElementById("book-list");
+                bookList.innerHTML = '';
+                this.books.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.classList.add('book-item');
+                    bookItem.innerHTML = `
+                        <p><strong>Name:</strong> ${book.name}</p>
+                        <p><strong>Author:</strong> ${book.author}</p>
+                        <p><strong>ISBN:</strong> ${book.isbn}</p>
+                        <p><strong>Type:</strong> ${book.type}</p>
+                        <p><strong>Status:</strong> ${book.availability ? 'Available' : 'Not Available'}</p>
+                        <button onclick="libraryCatalog.checkoutBook('${book.isbn}')">Checkout</button>
+                        <button onclick="libraryCatalog.returnBook('${book.isbn}')">Return</button>
+                        <button onclick="libraryCatalog.removeBook('${book.isbn}')">Remove</button>
+                        <button onclick="libraryCatalog.displayBookDetails('${book.isbn}')">Details</button>
+                        
+                        <br>
+                    `;
+                    bookList.appendChild(bookItem);
+                });
+            }
+
+            searchBooks(keyword) {
+                const filteredBooks = this.books.filter(book =>
+                    book.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                    book.author.toLowerCase().includes(keyword.toLowerCase()) ||
+                    book.type.toLowerCase().includes(keyword.toLowerCase()) ||
+                    book.isbn.toLowerCase().includes(keyword.toLowerCase()) 
+                );
+                return filteredBooks; 
+            }
+
+            displayBookDetails(isbn) {
+                const book = this.books.find(book => book.isbn === isbn);
+                if (book) {
+                    alert(`Name: ${book.name}\nAuthor: ${book.author}\nISBN: ${book.isbn}\nType: ${book.type}\nAvailability: ${book.availability ? 'Available' : 'Not Available'}`);
+                } else {
+                    alert('Book not found.');
+                }
+            }
+
+            checkoutBook(isbn) {
+                const book = this.books.find(book => book.isbn === isbn);
+                if (book) {
+                    book.availability = false;
+                    this.updateLocalStorage();
+                    this.displayBooks();
+                    alert(`Book ${book.name} has been checked out.`);
+                } else {
+                    alert('Book not found.');
+                }
+            }
+
+            returnBook(isbn) {
+                const book = this.books.find(book => book.isbn === isbn);
+                if (book) {
+                    book.availability = true;
+                    this.updateLocalStorage();
+                    this.displayBooks();
+                    alert(`Book "${book.name}" has been returned.`);
+                } else {
+                    alert('Book not found.');
+                }
+            }
+        }
+
+//main...task starts here......
+        const libraryCatalog = new LibraryCatalog();
+        libraryCatalog.displayBooks();
+
+
+
+        document.getElementById('search-btn').addEventListener('click', function() {
+
+            const keyword = document.getElementById('search').value.trim().toLowerCase();
+
+event.preventDefault();
+            if (keyword !== '') {
+                const searchResults = libraryCatalog.searchBooks(keyword);
+                const searchResultsContainer = document.getElementById('book-list');
+                searchResultsContainer.innerHTML = '';
+
+                if (searchResults.length === 0) {
+                    searchResultsContainer.innerHTML = '<p>No results found.</p>';
+                } else {
+                    searchResults.forEach(book => {
+                        const bookItem = document.createElement('div');
+                        bookItem.classList.add('book-item');
+                        bookItem.innerHTML = `
+                            <p><strong>Name:</strong> ${book.name}</p>
+                            <p><strong>Author:</strong> ${book.author}</p>
+                            <p><strong>ISBN:</strong> ${book.isbn}</p>
+                            <p><strong>Type:</strong> ${book.type}</p>
+                            <p><strong>Status:</strong> ${book.availability ? 'Available' : 'Not Available'}</p>
+                            <button onclick="libraryCatalog.checkoutBook('${book.isbn}')">Checkout</button>
+                            <button onclick="libraryCatalog.returnBook('${book.isbn}')">Return</button>
+                            <button onclick="libraryCatalog.displayBookDetails('${book.isbn}')">Details</button>
+                            <button onclick="libraryCatalog.removeBook('${book.isbn}')">Remove</button>
+                            `;
+                        searchResultsContainer.appendChild(bookItem);
+                    });
+                }
+            } else {
+                libraryCatalog.displayBooks();
+            }
+        });
+    </script>
+  </body>
+</html>

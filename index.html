@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Library Management System</title>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width,intial-scale=1"
+    />
+    
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+   
+  </head>
+  <style type="text/css">
+    #main_content {
+      background: rgba(245, 245, 245, 0.9);
+      padding: 50px;
+    }
+    #side_bar {
+      background: rgba(245, 245, 245, 0.9);
+      padding: 50px;
+    }
+    body {
+      background: rgba(245, 245, 245, 0.4);
+      background-image: url("https://img.freepik.com/free-photo/abundant-collection-antique-books-wooden-shelves-generated-by-ai_188544-29660.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1704240000&semt=sph");
+    }
+    .row{
+        margin: 20px;
+    justify-content: center;
+    }
+  </style>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">Bookbird Library</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"
+              >Home <span class="sr-only"></span></a
+            >
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            id="searchTxt"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+
+    <div class="row"> 
+        <div class="col-md-4" id="side_bar"> 
+            <h5>Today's Quote</h5> 
+            <h6>“There is more treasure in books than in all the pirate's loot on Treasure Island"</h6> 
+            <p>~ Walt Disney</p> 
+            <h5>Library Timing</h5> 
+            <ul> 
+                <li>Opening: 9:00 AM</li> 
+                <li>Closing: 12:00 PM</li> 
+            </ul> 
+            <h5>Happy Learning.....</h5> 
+            
+
+            <a class="nav-link" href="catalog.html"
+              ><button class="btn btn-outline-success my-2 my-sm-0" type="submit" >
+                LIBRARY CATALOG
+            </button><span class="sr-only"></span>
+            </a>
+            
+
+              
+
+        </div> 
+    </div>
+
+
+      
+  </body>
+</html>
